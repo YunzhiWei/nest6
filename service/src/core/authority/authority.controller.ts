@@ -14,6 +14,9 @@ import { AuthorityEntity, AuthorityService } from './index';
       primary: true,
     },
   },
+  query: {
+    limit: 6,
+  },
 })
 @Controller('api/authorities')
 export class AuthorityController {

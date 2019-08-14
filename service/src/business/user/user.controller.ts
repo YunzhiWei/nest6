@@ -15,6 +15,7 @@ import { UserEntity, UserService } from './index';
     },
   },
   query: {
+    limit: 6,
     join: {
       employer: { }
     }

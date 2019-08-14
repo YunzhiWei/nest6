@@ -14,6 +14,9 @@ import { RoleEntity, RoleService } from './index';
       primary: true,
     },
   },
+  query: {
+    limit: 6,
+  },
 })
 @Controller('api/roles')
 export class RoleController {

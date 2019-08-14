@@ -15,6 +15,7 @@ import { OrganizationEntity, OrganizationService } from './index';
     },
   },
   query: {
+    limit: 6,
     join: {
       employees: { }
     }
