@@ -6,6 +6,8 @@ import { CoreModule } from './core/core.module';
 import { UserModule } from './business/user';
 import { OrganizationModule } from './business/organization';
 
+import { RecipeModule } from './business/recipe';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -39,6 +41,8 @@ import { AppService } from './app.service';
     CoreModule,
     UserModule,
     OrganizationModule,
+
+    RecipeModule,
 
   ],
   controllers: [AppController],

@@ -3,8 +3,30 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Mutation {
+  addRecipe(newRecipe: NewRecipeInput!): [Recipe!]!
+  removeRecipe(id: String!): Boolean!
+}
+
+input NewRecipeInput {
+  id: String!
+  title: String!
+  description: String
+}
+
 type Query {
   roles: [RoleEntity!]!
+  recipe(id: String!): Recipe!
+  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+}
+
+"""The recipe model"""
+type Recipe {
+  id: ID!
+
+  """The title of the recipe"""
+  title: String!
+  description: String
 }
 
 type RoleEntity {
