@@ -1,46 +1,16 @@
-import { ObjectType, InputType, ArgsType, Field, ID, Int } from 'type-graphql';
+import { ObjectType, InputType, ArgsType, Field, ID, Int, Float } from 'type-graphql';
+import { Min, Max, MaxLength, Length } from "class-validator";
 
-@InputType()
-export class NewRecipeInput {
-  @Field()
-  id: string;
-
-  @Field()
-  // @MaxLength(30)
-  title: string;
-
-  @Field({ nullable: true })
-  // @Length(30, 255)
-  description?: string;
-
-  // @Field(type => [String])
-  // // @MaxArraySize(30)
-  // ingredients: string[];
-}
-
-@ArgsType()
-export class RecipesArgs {
+@ObjectType()
+export class Rate {
   @Field(type => Int)
-  // @Min(0)
-  skip: number = 0;
+  value: number;
 
-  @Field(type => Int)
-  // @Min(1)
-  // @Max(50)
-  take: number = 25;
+  @Field()
+  date: Date;
 
+  // user: User;
 }
-
-// @ObjectType()
-// export class Rate {
-//   @Field(type => Int)
-//   value: number;
-
-//   @Field()
-//   date: Date;
-
-//   user: User;
-// }
 
 @ObjectType({ description: "The recipe model" })
 export class Recipe {
@@ -53,16 +23,53 @@ export class Recipe {
   @Field({ nullable: true })
   description?: string;
 
-//   @Field(type => [String])
-//   ingredients: string[];
+  @Field(type => [String])
+  ingredients: string[];
 
-//   @Field()
-//   creationDate: Date;
+  @Field()
+  createdWhen: Date;
 
-//   @Field(type => [Rate])
-//   ratings: Rate[];
+  @Field(type => [Rate])
+  ratings: Rate[];
 
-//   @Field({ nullable: true })
-//   averageRating?: number;
+  @Field(type => Float, { nullable: true })
+  averageRating?( /* @Args("since") sinceDate?: Date */): number | null {
+    const ratings = // !sinceDate ? 
+      this.ratings // : this.ratings.filter(rate => rate.date > sinceDate)
+    ;
+    if (!ratings.length) return null;
+
+    const sumvalue = ratings.reduce((sum, rate) => sum + rate.value, 0);
+    return sumvalue / ratings.length;
+  }
+
+}
+
+@InputType()
+export class NewRecipeInput extends Recipe
+{
+  @Field()
+  @MaxLength(30)
+  title: string;
+
+  @Field({ nullable: true })
+  @Length(30, 255)
+  description?: string;
+
+  @Field(type => [String])
+  // @MaxArraySize(30)
+  ingredients: string[];
+}
+
+@ArgsType()
+export class RecipesArgs {
+  @Field(type => Int)
+  @Min(0)
+  skip: number = 0;
+
+  @Field(type => Int)
+  @Min(1)
+  @Max(50)
+  take: number = 25;
 
 }

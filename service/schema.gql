@@ -3,21 +3,31 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   addRecipe(newRecipe: NewRecipeInput!): [Recipe!]!
   removeRecipe(id: String!): Boolean!
 }
 
 input NewRecipeInput {
-  id: String!
   title: String!
   description: String
+  ingredients: [String!]!
 }
 
 type Query {
   roles: [RoleEntity!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+}
+
+type Rate {
+  value: Int!
+  date: DateTime!
 }
 
 """The recipe model"""
@@ -27,6 +37,10 @@ type Recipe {
   """The title of the recipe"""
   title: String!
   description: String
+  ingredients: [String!]!
+  createdWhen: DateTime!
+  ratings: [Rate!]!
+  averageRating: Float
 }
 
 type RoleEntity {

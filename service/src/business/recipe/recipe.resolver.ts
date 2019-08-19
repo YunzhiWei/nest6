@@ -4,11 +4,11 @@ import * as _ from 'lodash';
 import { Recipe, RecipesArgs, NewRecipeInput } from './index';
 
 @Resolver(of => Recipe)
-export class RecipeResolver {
-
+export class RecipeResolver // implements ResolverInterface<Recipe>  
+{
     private recipeRepo: Recipe[] = [
-        {id: '001', title: 'ONE', description: 'The first recipe!'},
-        {id: '002', title: 'TWO', description: 'The second recipe!'},
+        {id: '001', title: 'ONE', description: 'The first recipe!', ingredients: ['A', 'B'], createdWhen: new Date(), ratings: [{ value: 5, date: new Date() }, { value: 4, date: new Date() }] },
+        {id: '002', title: 'TWO', description: 'The second recipe!',ingredients: ['B', 'C'], createdWhen: new Date(), ratings: [{ value: 4, date: new Date() }, { value: 3, date: new Date() }] },
     ];
 
     constructor(
@@ -19,7 +19,7 @@ export class RecipeResolver {
     /**
     query {
         recipe(id: "001") { 
-            id, title
+            id, title, averageRating
         }
     }
      */
@@ -36,8 +36,14 @@ export class RecipeResolver {
     @Query(returns => [Recipe])
     /**
     query {
-        recipes { 
-            id, title, description
+        recipes {
+            id, 
+            title, 
+            description, 
+            createdWhen, 
+            ingredients,
+            averageRating,
+            ratings { ... }
         }
     }
      */
