@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query, Subscription, Args } from '@nestjs/graphql';
+import { Mutation, Query, Subscription, Resolver, Args, Root } from '@nestjs/graphql';
 import * as _ from 'lodash';
 
 import { Recipe, RecipesArgs, NewRecipeInput } from './index';
@@ -51,6 +51,13 @@ export class RecipeResolver // implements ResolverInterface<Recipe>
         // return this.recipeService.findAll({ skip, take });
         return await this.recipeRepo;
     }
+
+    // @FieldResolver()
+    // averageRating(@Root() recipe: Recipe) {
+    //     if (!recipe.ratings.length) return null;
+    //     const valuesum = recipe.ratings.reduce((sum, rate) => sum + rate.value, 0);
+    //     return valuesum / recipe.ratings.length;
+    // }
 
     @Mutation(returns => [Recipe])
     // @Authorized()

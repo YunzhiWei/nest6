@@ -3,6 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type AuthorityEntity {
+  id: ID!
+  sys_app: String
+  authority: String
+  name: String
+  label: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -20,6 +28,7 @@ input NewRecipeInput {
 }
 
 type Query {
+  authorities: [AuthorityEntity!]!
   roles: [RoleEntity!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
@@ -46,7 +55,7 @@ type Recipe {
 type RoleEntity {
   id: ID!
   sys_app: String
-  authorities: String
   name: String
   label: String
+  authorities: String!
 }

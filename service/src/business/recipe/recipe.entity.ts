@@ -33,7 +33,9 @@ export class Recipe {
   ratings: Rate[];
 
   @Field(type => Float, { nullable: true })
-  averageRating?( /* @Args("since") sinceDate?: Date */): number | null {
+  averageRating? : number;
+  /*
+  averageRating?( @Args("since") sinceDate?: Date ): number | null {
     const ratings = // !sinceDate ? 
       this.ratings // : this.ratings.filter(rate => rate.date > sinceDate)
     ;
@@ -42,6 +44,7 @@ export class Recipe {
     const sumvalue = ratings.reduce((sum, rate) => sum + rate.value, 0);
     return sumvalue / ratings.length;
   }
+  */
 
 }
 

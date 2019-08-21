@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthorityEntity, AuthorityService, AuthorityController } from './authority';
-import { RoleEntity, RoleService, RoleController, RolesResolver } from './role';
+import { AuthorityEntity, AuthorityService, AuthorityController, AuthorityResolver } from './authority';
+import { RoleEntity, RoleService, RoleController, RoleResolver } from './role';
 
 @Global()
 @Module({
@@ -19,7 +19,8 @@ import { RoleEntity, RoleService, RoleController, RolesResolver } from './role';
   providers: [
     AuthorityService,
     RoleService,
-    RolesResolver,
+    AuthorityResolver,
+    RoleResolver,
   ],
   exports: [
     AuthorityService,
