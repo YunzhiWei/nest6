@@ -12,7 +12,7 @@
     "graphql-tools": "^4.0.5",
     "pg": "^7.12.1",
     "swagger-ui-express": "^4.0.7",
-    "type-graphql": "^0.17.4",
+    "type-graphql": "^0.17.6",
     "typeorm": "^0.2.18"
   }
 }
